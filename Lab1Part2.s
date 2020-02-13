@@ -16,7 +16,8 @@ twentytwo EQU 0x00400000 ; 1 << 22
 __main
 	; Your code goes here!
 		BL    LEDSETUP
-		MOV   R0, #0
+		
+		MOV   R0, #0 ; test cases -- one for every digit the board can display
 		BL    morse
 		BL    pause
 		MOV   R0, #1
@@ -49,7 +50,7 @@ __main
 		
 morse
 		PUSH  {LR}
-	    CMP   R0, #0
+	    	CMP   R0, #0
 		BLEQ   zero
 		CMP   R0, #1
 		BLEQ  one
@@ -173,7 +174,7 @@ nine
 		BX    LR
 		
 dot
-		PUSH  {LR, R7}
+		PUSH  {LR, R7} ; preserving the value stored in R7 as dictated by the ARM calling convention
 		BL    LEDON
 		MOV   R7, #0x000F0000
 		BL    delay
