@@ -17,7 +17,25 @@ __main
 		BL    LEDSETUP
 		
 		; test cases 
-		MOV   R0, #3 ; set R0 to correct value
+		MOV   R0, #0 ; set R0 to correct value
+		BL fib ; call fib
+		BL    morse
+		MOV   R0, #1
+		BL fib ; call fib
+		BL    morse
+		MOV   R0, #2
+		BL fib ; call fib
+		BL    morse
+		MOV   R0, #3
+		BL fib ; call fib
+		BL    morse
+		MOV   R0, #4
+		BL fib ; call fib
+		BL    morse
+		MOV   R0, #5
+		BL fib ; call fib
+		BL    morse
+		MOV   R0, #6
 		BL fib ; call fib
 		BL    morse
 		B     forever
