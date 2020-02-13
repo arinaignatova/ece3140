@@ -14,28 +14,23 @@ eight     EQU 0x00000100 ; 1 << 8
 twentytwo EQU 0x00400000 ; 1 << 22
 
 __main
-	; Your code goes here!
 		BL    LEDSETUP
-		; call fib
-		; set R0 to correct value
-		MOV   R0, #9
+		
+		; test cases 
+		MOV   R0, #3 ; set R0 to correct value
+		BL fib ; call fib
 		BL    morse
 		B     forever
 
 fib
-		PUSH  {R4, R5, LR}
+		PUSH  {LR}
 		CMP   R0, #0
 		BLEQ  fibzero
 		CMP   R0, #1
 		BLEQ  fibone
-		SUB   R0, R0, #1 ; n - 1
-		SUB   R4, R0, #1 ; n - 2
-		BL    fib        ; recursive call to fib(n-1)
-		MOV   R5, R0     ; store value of fib(n-1)
-		MOV   R0, R4
-		BL    fib        ; recursive call to fib(n-2)
-		ADD   R0, R0, R5 ; fib(n-1) + fib(n-2)
-		POP   {R4, R5, LR}
+		CMP   R0, #1  
+		BLGT fibother ; hopefully this function actually exists
+		POP   {LR}
 		BX    LR
 		
 fibzero
@@ -46,9 +41,20 @@ fibone
 		MOV   R0, #1
 		BX    LR
 
+fibother
+		PUSH  {R4, R5, LR}
+		SUB   R0, R0, #1 ; n - 1
+		SUB   R4, R0, #1 ; n - 2
+		BL    fib        ; recursive call to fib(n-1)
+		MOV   R5, R0     ; store value of fib(n-1)
+		MOV   R0, R4
+		BL    fib        ; recursive call to fib(n-2)
+		ADD   R0, R0, R5 ; fib(n-1) + fib(n-2)
+		POP   {R4, R5, LR}
+		BX    LR
 morse
 		PUSH  {LR}
-	    CMP   R0, #0
+	    	CMP   R0, #0
 		BLEQ   zero
 		CMP   R0, #1
 		BLEQ  one
