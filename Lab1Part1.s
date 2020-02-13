@@ -14,10 +14,10 @@ eight     EQU 0x00000100 ; 1 << 8
 twentytwo EQU 0x00400000 ; 1 << 22
 
 __main
-	; Your code goes here!
-		MOV   R0, #7
+		MOV   R0, #7 ; assigning a value to R0
 		BL    LEDSETUP
-	    CMP   R0, #0
+		
+	    	CMP   R0, #0
 		BEQ   zero
 		CMP   R0, #1
 		BEQ   one
